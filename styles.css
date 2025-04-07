@@ -45,18 +45,30 @@ body {
     line-height: 1.6;
     min-height: 100vh;
     min-height: -webkit-fill-available;
-    display: grid;
-    place-items: center;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
 }
 
+.page-wrapper {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .container {
+    flex: 1 0 auto;
     width: var(--container-width);
     margin-inline: auto;
     padding: var(--spacing-lg);
     opacity: 0;
     transition: opacity 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .container.visible {
@@ -66,6 +78,7 @@ body {
 .hero {
     text-align: center;
     animation: fadeIn 0.8s ease-out;
+    width: 100%;
 }
 
 .title {
@@ -245,28 +258,53 @@ body {
 }
 
 .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: var(--spacing-md);
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7));
+    flex-shrink: 0;
+    width: 100%;
+    padding: var(--spacing-md) 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    z-index: 10;
+    transition: all var(--transition-speed) ease;
+    position: relative;
+    z-index: 1;
 }
 
 .footer-content {
-    max-width: var(--container-width);
+    width: var(--container-width);
     margin: 0 auto;
     text-align: center;
-    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
-    color: var(--text-secondary);
+    padding: 0 var(--spacing-md);
 }
 
 .copyright {
+    color: var(--text-secondary);
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
     opacity: 0.8;
-    margin: 0;
+    transition: opacity var(--transition-speed) ease;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: var(--spacing-md);
+    }
+    
+    .footer {
+        padding: var(--spacing-sm) 0;
+    }
+    
+    .footer-content {
+        padding: 0 var(--spacing-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: calc(var(--spacing-sm) * 0.75) 0;
+    }
+    
+    .copyright {
+        font-size: 0.75rem;
+    }
 }
 
 @media (prefers-contrast: high) {
